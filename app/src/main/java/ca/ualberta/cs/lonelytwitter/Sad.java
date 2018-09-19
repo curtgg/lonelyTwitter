@@ -21,7 +21,7 @@ public class Sad extends Mood {
     }
 
     public String formatMood(){
-        return "Feeling really sad at: " + getDate();
+        return "Feeling really sad";
     }
 
 }
