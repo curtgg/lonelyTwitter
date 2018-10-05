@@ -8,6 +8,7 @@ public class Happy extends Mood {
         super();
     }
 
+    //@Param Date dateTime - date of tweet
     public Happy(Date dateTime){
         super(dateTime);
     }
@@ -16,10 +17,12 @@ public class Happy extends Mood {
         return this._DateTime;
     }
 
+    //@Param Date dateTime - new date of tweet
     public void setDate(Date dateTime){
         this._DateTime = dateTime;
     }
 
+    //@Return String of mood
     public String formatMood(){
         return "Feeling really happy";
     }

@@ -34,6 +34,10 @@ public abstract class Tweet implements Tweetable {
         }
     }
 
+    public String toString(){
+        return this.message + " | " + this.date;
+    }
+
     protected void addMood(Mood mood){
         this.moods.add(mood);
     }

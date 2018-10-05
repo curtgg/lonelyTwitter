@@ -56,17 +56,17 @@ public class LonelyTwitterActivity extends Activity implements PopupMenu.OnMenuI
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
+			public void onClick(View v) { //Set listener
 				String text = bodyText.getText().toString();
 				try{
 					ImportantTweet newTweet = new ImportantTweet();
 					newTweet.setMessage(text);
-					tweets.add(newTweet);
+					tweets.add(newTweet); //add new tweet to list
 				} catch (TweetTooLongException e){
-					Log.d("Exception", "Tweet too long");
+					Log.d("Exception", "Tweet too long"); //error
 				}
-				listAdapter.notifyDataSetChanged();
-				saveInFile();
+				listAdapter.notifyDataSetChanged(); //notify
+				saveInFile();//save
 			}
 		});
 
@@ -95,10 +95,10 @@ public class LonelyTwitterActivity extends Activity implements PopupMenu.OnMenuI
         Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
 			case R.id.happyBtn:
-				moodList.add(new Happy());
+				moodList.add(new Happy());//add mood
 				return true;
 			case R.id.sadBtn:
-				moodList.add(new Sad());
+				moodList.add(new Sad());//add mood
 				return true;
 			default:
 				return false;
@@ -113,19 +113,26 @@ public class LonelyTwitterActivity extends Activity implements PopupMenu.OnMenuI
 		oldTweetsList.setAdapter(listAdapter);
 	}
 
+	/*
+	 *
+	 *	Load from file
+	 *
+	 */
 	private void loadFromFile() {
 		try {
 			FileInputStream fis = openFileInput(FILENAME);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
 			Gson gson = new Gson();
-			Type typeListTweets = new TypeToken<ArrayList<Tweet>>() {
-			}.getType();
+			Type typeListTweets = new TypeToken<ArrayList<Tweet>>(){}.getType();
 			tweets = gson.fromJson(reader, typeListTweets);
 		} catch(Exception e){
 			Log.d("Exception",e.toString());
 		}
 	}
-	
+
+	/*
+	 * Save to file
+	 */
 	private void saveInFile() {
 
 		try {
@@ -142,7 +149,7 @@ public class LonelyTwitterActivity extends Activity implements PopupMenu.OnMenuI
 		try {
 			File dir = getFilesDir();
 			File f = new File(dir, FILENAME);
-			f.delete();
+			f.delete();//delete file
 		} catch (Exception e){
 			Log.d("exception", e.toString());
 		}
