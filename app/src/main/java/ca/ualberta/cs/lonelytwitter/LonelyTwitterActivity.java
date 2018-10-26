@@ -32,26 +32,17 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-<<<<<<< HEAD
-public class LonelyTwitterActivity extends Activity {
-=======
 public class LonelyTwitterActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
->>>>>>> master
 
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
-<<<<<<< HEAD
-	private ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
-	private ArrayAdapter<Tweet> adapter;
 
-=======
 	private ArrayList<Mood> moodList = new ArrayList<Mood>();
 	private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 	private ArrayAdapter<Tweet> listAdapter;
 
     /** Called when the activity is first created. */
->>>>>>> master
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,14 +59,8 @@ public class LonelyTwitterActivity extends Activity implements PopupMenu.OnMenuI
 
 			public void onClick(View v) { //Set listener
 				String text = bodyText.getText().toString();
-<<<<<<< HEAD
-				Tweet newTweet = new NormalTweet(text);
-				tweetList.add(newTweet);
-				adapter.notifyDataSetChanged();
-				saveInFile();
-=======
 				try{
-					ImportantTweet newTweet = new ImportantTweet();
+					ImportantTweet newTweet = new ImportantTweet(text);
 					newTweet.setMessage(text);
 					tweets.add(newTweet); //add new tweet to list
 				} catch (TweetTooLongException e){
@@ -102,7 +87,6 @@ public class LonelyTwitterActivity extends Activity implements PopupMenu.OnMenuI
 				deleteInFile();
 				tweets.clear();
 				listAdapter.notifyDataSetChanged();
->>>>>>> master
 			}
 		});
 	}
@@ -126,46 +110,6 @@ public class LonelyTwitterActivity extends Activity implements PopupMenu.OnMenuI
 	protected void onStart() {
 		super.onStart();
 		loadFromFile();
-<<<<<<< HEAD
-		adapter = new ArrayAdapter<Tweet>(this,
-				R.layout.list_item, tweetList);
-		oldTweetsList.setAdapter(adapter);
-	}
-
-
-	private void loadFromFile() {
-		try {
-			FileInputStream fis = openFileInput(FILENAME);
-			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-			Gson gson = new Gson();
-			//Code taken from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt Sept.22,2016
-			Type listType = new TypeToken<ArrayList<NormalTweet>>(){}.getType();
-			tweetList = gson.fromJson(in, listType);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			tweetList = new ArrayList<Tweet>();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			throw new RuntimeException();
-		}
-	}
-
-
-	private void saveInFile() {
-		try {
-
-			FileOutputStream fos = openFileOutput(FILENAME,0);
-			OutputStreamWriter writer = new OutputStreamWriter(fos);
-			Gson gson = new Gson();
-			gson.toJson(tweetList, writer);
-			writer.flush();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			throw new RuntimeException();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			throw new RuntimeException();
-=======
 		listAdapter = new ArrayAdapter<Tweet>(this, R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(listAdapter);
 	}
@@ -209,7 +153,6 @@ public class LonelyTwitterActivity extends Activity implements PopupMenu.OnMenuI
 			f.delete();//delete file
 		} catch (Exception e){
 			Log.d("exception", e.toString());
->>>>>>> master
 		}
 	}
 }
